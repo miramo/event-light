@@ -1,0 +1,62 @@
+{
+  "defaultSeverity": "warn",
+  "extends": [
+    "tslint:recommended",
+    "tslint-config-prettier",
+    "tslint-consistent-codestyle"
+  ],
+  "linterOptions": {
+    "exclude": [
+      "config/**/*.js",
+      "node_modules/**/*.ts",
+      "**/*.json"
+    ]
+  },
+  "rulesDirectory": [
+    "tslint-plugin-prettier"
+  ],
+  "rules": {
+    "prettier": true,
+    "no-unused": true,
+    "variable-name": false,
+    "trailing-comma": true,
+    "member-ordering": {
+      "options": {
+        "order": [
+          "static-field",
+          "static-method"
+        ]
+      }
+    },
+    "member-access": {
+      "options": [
+        "no-public"
+      ]
+    },
+    "forin": false,
+    "quotemark": {
+      "options": [
+        "single",
+        "jsx-double",
+        "avoid-escape"
+      ]
+    },
+    "semicolon": {
+      "options": [
+        "always",
+        "ignore-bound-class-methods"
+      ]
+    },
+    "array-type": false,
+    "object-literal-sort-keys": false,
+    "interface-over-type-literal": false,
+    "jsx-boolean-value": false,
+    "max-line-length": {
+      "options": 110
+    },
+    "interface-name": false
+  },
+  "jsRules": {
+    "object-literal-sort-keys": false
+  }
+}

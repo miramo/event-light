@@ -1,0 +1,37 @@
+{
+  "name": "event-light",
+  "version": "0.1.0",
+  "description": "",
+  "repository": "",
+  "author": "Maxime MIRAMOND <maxime@gojob.com>",
+  "private": true,
+  "scripts": {
+    "test": "echo 'no test'",
+    "build": "./node_modules/.bin/tsc"
+  },
+  "dependencies": {
+    "@slack/client": "^4.11.0",
+    "@types/dotenv-safe": "^5.0.3",
+    "async-exit-hook": "^2.0.1",
+    "dotenv-safe": "^6.1.0",
+    "exit-hook": "^2.0.0",
+    "rxjs": "^6.4.0",
+    "yeelight-awesome": "^1.0.12"
+  },
+  "devDependencies": {
+    "commitizen": "^3.0.7",
+    "cz-conventional-changelog": "^2.1.0",
+    "nodemon": "^1.18.10",
+    "prettier": "^1.16.4",
+    "ts-node": "^8.0.3",
+    "tslint": "^5.13.1",
+    "tslint-config-prettier": "^1.18.0",
+    "tslint-plugin-prettier": "^2.0.1",
+    "typescript": "^3.3.3333"
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
+  }
+}
