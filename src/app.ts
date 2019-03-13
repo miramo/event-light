@@ -31,6 +31,8 @@ export class App {
       await this.light.alert();
     } else if (/handled error/gim.test(message)) {
       await this.light.warning();
+    } else if (/10th event/gim.test(message)) {
+      await this.light.alert();
     }
   }
 }
