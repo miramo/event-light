@@ -43,8 +43,12 @@ export class Slack {
   }
 
   onMessage(message: any) {
-    console.dir(message, { depth: null });
-    this.messages.next(message.text);
+    // console.dir(message, { depth: null });
+    if (message.text) {
+      this.messages.next(message.text);
+    } else if (message.attachments && message.attachments.length && message.attachments[0].title) {
+      this.messages.next(message.attachments[0].title);
+    }
   }
 
   async connect() {

@@ -63,7 +63,41 @@ export class Light {
       [new FlowState(800, 1, new Color(241, 90, 34).getValue(), 100), new FlowState(500, 1, new Color(241, 90, 34).getValue(), 1)],
       StartFlowAction.LED_STAY,
     );
-    await this.sleep(3 * 60 * 1000);
+    await this.sleep(5 * 60 * 1000);
+    await this.idle();
+  }
+
+  private randomState() {
+    return new FlowState(
+      500,
+      1,
+      new Color(Math.floor(Math.random() * 256), Math.floor(Math.random() * 256), Math.floor(Math.random() * 256)).getValue(),
+      Math.floor(Math.random() * 101),
+    );
+  }
+
+  async partyTime() {
+    console.log(`[Yeelight]: party time the light ${this.ip}:${this.port}`);
+    if (this.timer) {
+      clearTimeout(this.timer);
+    }
+
+    await this.light.startColorFlow(
+      [
+        this.randomState(),
+        this.randomState(),
+        this.randomState(),
+        this.randomState(),
+        this.randomState(),
+        this.randomState(),
+        this.randomState(),
+        this.randomState(),
+        this.randomState(),
+        this.randomState(),
+      ],
+      StartFlowAction.LED_STAY,
+    );
+    await this.sleep(5 * 60 * 1000);
     await this.idle();
   }
 
