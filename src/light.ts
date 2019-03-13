@@ -54,6 +54,19 @@ export class Light {
     await this.idle();
   }
 
+  async warning() {
+    console.log(`[Yeelight]: warning the light ${this.ip}:${this.port}`);
+    if (this.timer) {
+      clearTimeout(this.timer);
+    }
+    await this.light.startColorFlow(
+      [new FlowState(800, 1, new Color(241, 90, 34).getValue(), 100), new FlowState(500, 1, new Color(241, 90, 34).getValue(), 1)],
+      StartFlowAction.LED_STAY,
+    );
+    await this.sleep(3 * 60 * 1000);
+    await this.idle();
+  }
+
   async onConnected() {
     console.log(`[Yeelight]: connected to the light ${this.ip}:${this.port}`);
     await this.idle();

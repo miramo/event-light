@@ -3,7 +3,7 @@ import { Subject } from 'rxjs';
 
 export class Slack {
   private client: RTMClient;
-  
+
   messages = new Subject<string>();
 
   constructor(token: string) {
@@ -19,7 +19,7 @@ export class Slack {
   }
 
   onConnecting() {
-    console.log('[Slack]: : connecting to slack API...');
+    console.log('[Slack]: connecting to slack API...');
   }
 
   onDisconnecting() {
@@ -43,6 +43,7 @@ export class Slack {
   }
 
   onMessage(message: any) {
+    console.dir(message, { depth: null });
     this.messages.next(message.text);
   }
 

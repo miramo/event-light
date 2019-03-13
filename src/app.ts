@@ -27,10 +27,10 @@ export class App {
   async onMessage(message: string) {
     console.log(`[App]: message: ${message}`);
 
-    if (/new unhandled error/gi.test(message)) {
+    if (/unhandled error/gim.test(message)) {
       await this.light.alert();
-    } else if (/10th event/gi.test(message)) {
-      await this.light.alert();
+    } else if (/handled error/gim.test(message)) {
+      await this.light.warning();
     }
   }
 }
