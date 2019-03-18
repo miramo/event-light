@@ -1,4 +1,4 @@
-import { Yeelight, Color, FlowState, StartFlowAction } from 'yeelight-awesome';
+import { Color, FlowState, StartFlowAction, Yeelight } from 'yeelight-awesome';
 
 export class Light {
   private light: Yeelight;
@@ -67,33 +67,34 @@ export class Light {
     await this.idle();
   }
 
-  private randomState() {
+  private randomState(time: number) {
     return new FlowState(
-      500,
+      time,
       1,
       new Color(Math.floor(Math.random() * 256), Math.floor(Math.random() * 256), Math.floor(Math.random() * 256)).getValue(),
       Math.floor(Math.random() * 101),
     );
   }
 
-  async partyTime() {
+  async partyTime(type: 'start' | 'end') {
     console.log(`[Yeelight]: party time the light ${this.ip}:${this.port}`);
     if (this.timer) {
       clearTimeout(this.timer);
     }
 
+    const time = type === 'start' ? 500 : 1000;
     await this.light.startColorFlow(
       [
-        this.randomState(),
-        this.randomState(),
-        this.randomState(),
-        this.randomState(),
-        this.randomState(),
-        this.randomState(),
-        this.randomState(),
-        this.randomState(),
-        this.randomState(),
-        this.randomState(),
+        this.randomState(time),
+        this.randomState(time),
+        this.randomState(time),
+        this.randomState(time),
+        this.randomState(time),
+        this.randomState(time),
+        this.randomState(time),
+        this.randomState(time),
+        this.randomState(time),
+        this.randomState(time),
       ],
       StartFlowAction.LED_STAY,
     );

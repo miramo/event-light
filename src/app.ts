@@ -31,8 +31,10 @@ export class App {
       await this.light.alert();
     } else if (/handled error/gim.test(message) || /snoozed error re-occurred/gim.test(message)) {
       await this.light.warning();
-    } else if (/production deployment/gim.test(message)) {
-      await this.light.partyTime();
+    } else if (/production deployment started/gim.test(message)) {
+      await this.light.partyTime('start');
+    } else if (/production deployment success/gim.test(message)) {
+      await this.light.partyTime('end');
     }
   }
 }
