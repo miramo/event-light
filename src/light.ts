@@ -82,7 +82,7 @@ export class Light {
       clearTimeout(this.timer);
     }
 
-    const time = type === 'start' ? 500 : 1000;
+    const time = type === 'start' ? 500 : 3000;
     await this.light.startColorFlow(
       [
         this.randomState(time),
