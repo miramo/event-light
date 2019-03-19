@@ -27,9 +27,9 @@ export class App {
   async onMessage(message: string) {
     console.log(`[App]: message: ${message}`);
 
-    if (/unhandled error/gim.test(message) || /10th event/gim.test(message)) {
+    if (/unhandled error/gim.test(message)) {
       await this.light.alert();
-    } else if (/handled error/gim.test(message) || /snoozed error re-occurred/gim.test(message)) {
+    } else if (/handled error/gim.test(message) || /snoozed error re-occurred/gim.test(message) || /\d+th event/gim.test(message)) {
       await this.light.warning();
     } else if (/production deployment started/gim.test(message)) {
       await this.light.partyTime('start');
