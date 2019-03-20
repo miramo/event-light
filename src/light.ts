@@ -1,4 +1,5 @@
 import { Color, FlowState, StartFlowAction, Yeelight } from 'yeelight-awesome';
+import winston from 'winston';
 
 export class Light {
   private light: Yeelight;
@@ -17,16 +18,16 @@ export class Light {
   }
 
   async connect() {
-    console.log(`[Yeelight]: connecting to the light ${this.ip}:${this.port}...`);
+    winston.info(`[Yeelight]: connecting to the light ${this.ip}:${this.port}...`);
     try {
       this.light.connect();
     } catch (err) {
-      console.error(`[Yeelight]: err = ${err}`);
+      winston.error(`[Yeelight]: err = ${err}`);
     }
   }
 
   async disconnect() {
-    console.log(`[Yeelight]: disconnecting to the light ${this.ip}:${this.port}...`);
+    winston.info(`[Yeelight]: disconnecting to the light ${this.ip}:${this.port}...`);
     if (this.timer) {
       clearTimeout(this.timer);
     }
@@ -35,14 +36,14 @@ export class Light {
   }
 
   async idle() {
-    console.log(`[Yeelight]: idle the light ${this.ip}:${this.port}`);
+    winston.info(`[Yeelight]: idle the light ${this.ip}:${this.port}`);
     await this.light.setPower(true, 'smooth', 2000);
     await this.light.setBright(1);
     await this.light.setRGB(new Color(0, 255, 0), 'smooth');
   }
 
   async alert() {
-    console.log(`[Yeelight]: alert the light ${this.ip}:${this.port}`);
+    winston.info(`[Yeelight]: alert the light ${this.ip}:${this.port}`);
     if (this.timer) {
       clearTimeout(this.timer);
     }
@@ -55,7 +56,7 @@ export class Light {
   }
 
   async warning() {
-    console.log(`[Yeelight]: warning the light ${this.ip}:${this.port}`);
+    winston.info(`[Yeelight]: warning the light ${this.ip}:${this.port}`);
     if (this.timer) {
       clearTimeout(this.timer);
     }
@@ -77,7 +78,7 @@ export class Light {
   }
 
   async partyTime(type: 'start' | 'end') {
-    console.log(`[Yeelight]: party time the light ${this.ip}:${this.port}`);
+    winston.info(`[Yeelight]: party time the light ${this.ip}:${this.port}`);
     if (this.timer) {
       clearTimeout(this.timer);
     }
@@ -103,11 +104,11 @@ export class Light {
   }
 
   async onConnected() {
-    console.log(`[Yeelight]: connected to the light ${this.ip}:${this.port}`);
+    winston.info(`[Yeelight]: connected to the light ${this.ip}:${this.port}`);
     await this.idle();
   }
 
   onDisconnecting() {
-    console.log(`[Yeelight]: disconnecting to the light ${this.ip}:${this.port}`);
+    winston.info(`[Yeelight]: disconnecting to the light ${this.ip}:${this.port}`);
   }
 }

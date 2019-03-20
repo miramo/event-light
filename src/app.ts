@@ -1,17 +1,22 @@
+import winston from 'winston';
+
 import { Light } from './light';
 import { Slack } from './slack';
+import { configureLogger } from './logger';
 
 export class App {
   private light: Light;
   private slackClient: Slack;
 
   constructor() {
+    configureLogger();
+
     this.light = new Light(process.env.LIGHT_IP!, process.env.LIGHT_PORT!);
     this.slackClient = new Slack(process.env.SLACK_TOKEN!);
   }
 
   async start() {
-    console.log('[App]: starting...');
+    winston.info('[App]: starting...');
     await this.slackClient.connect();
     await this.light.connect();
 
@@ -19,13 +24,13 @@ export class App {
   }
 
   async stop() {
-    console.log('[App]: stopping...');
+    winston.info('[App]: stopping...');
     await this.slackClient.disconnect();
     await this.light.disconnect();
   }
 
   async onMessage(message: string) {
-    console.log(`[App]: message: ${message}`);
+    winston.info(`[App]: message: ${message}`);
 
     if (/unhandled error/gim.test(message)) {
       await this.light.alert();

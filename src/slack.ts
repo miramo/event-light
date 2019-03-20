@@ -1,5 +1,6 @@
 import { RTMClient } from '@slack/client';
 import { Subject } from 'rxjs';
+import winston from 'winston';
 
 export class Slack {
   private client: RTMClient;
@@ -19,27 +20,27 @@ export class Slack {
   }
 
   onConnecting() {
-    console.log('[Slack]: connecting to slack API...');
+    winston.info('[Slack]: connecting to slack API...');
   }
 
   onDisconnecting() {
-    console.log('[Slack]: disconnecting from slack API...');
+    winston.info('[Slack]: disconnecting from slack API...');
   }
 
   onDisconnect() {
-    console.error('[Slack]: disconnected from slack!');
+    winston.info('[Slack]: disconnected from slack!');
   }
 
   onReconnecting() {
-    console.log('[Slack]: reconnecting to slack API...');
+    winston.info('[Slack]: reconnecting to slack API...');
   }
 
   onErrorStart(error: Error) {
-    console.error(JSON.stringify(error, null, 2));
+    winston.error(JSON.stringify(error, null, 2));
   }
 
   onError(error: Error) {
-    console.error(JSON.stringify(error, null, 2));
+    winston.error(JSON.stringify(error, null, 2));
   }
 
   onMessage(message: any) {
@@ -55,9 +56,9 @@ export class Slack {
     try {
       await this.client.start();
     } catch (err) {
-      console.error(`[Slack]: err = ${err}`);
+      winston.error(`[Slack]: err = ${err}`);
     }
-    console.log(`[Slack]: connected to slack!`);
+    winston.info(`[Slack]: connected to slack!`);
   }
 
   disconnect() {
