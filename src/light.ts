@@ -11,7 +11,7 @@ export class Light {
     });
 
   constructor(private ip: string, private port: string) {
-    this.light = new Yeelight({ lightIp: ip, lightPort: Number(port) });
+    this.light = new Yeelight({ lightIp: ip, lightPort: Number(port) }, winston);
 
     this.light.on('connected', this.onConnected.bind(this));
     this.light.on('disconnecting', this.onDisconnecting.bind(this));
