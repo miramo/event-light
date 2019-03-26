@@ -1,4 +1,5 @@
 import winston from 'winston';
+import { exec } from 'child_process';
 
 import { Light } from './light';
 import { Slack } from './slack';
@@ -33,12 +34,16 @@ export class App {
     winston.info(`[App]: message: ${message}`);
 
     if (/unhandled error/gim.test(message)) {
+      exec(`${process.env.AUDIO_PLAYER} ${__dirname}/../assets/2plus2is4.mp3`);
       await this.light.alert();
     } else if (/handled error/gim.test(message) || /snoozed error re-occurred/gim.test(message) || /\d+th event/gim.test(message)) {
+      exec(`${process.env.AUDIO_PLAYER} ${__dirname}/../assets/2plus2is4.mp3`);
       await this.light.warning();
-    } else if (/production deployment started/gim.test(message)) {
+    } else if (/deployment started/gim.test(message)) {
+      exec(`${process.env.AUDIO_PLAYER} ${__dirname}/../assets/skia.mp3`);
       await this.light.partyTime('start');
-    } else if (/production deployment success/gim.test(message)) {
+    } else if (/deployment success/gim.test(message)) {
+      exec(`${process.env.AUDIO_PLAYER} ${__dirname}/../assets/ratata.mp3`);
       await this.light.partyTime('end');
     }
   }
