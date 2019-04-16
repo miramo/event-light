@@ -1,5 +1,5 @@
-import { Color, FlowState, StartFlowAction, Yeelight } from 'yeelight-awesome';
 import winston from 'winston';
+import { Color, FlowState, StartFlowAction, Yeelight } from 'yeelight-awesome';
 
 export class Light {
   private light: Yeelight;
@@ -11,14 +11,20 @@ export class Light {
     });
 
   constructor(private ip: string, private port: string) {
-    this.light = new Yeelight({ lightIp: ip, lightPort: Number(port) }, winston);
+    this.light = new Yeelight(
+      { lightIp: ip, lightPort: Number(port) },
+      winston,
+    );
 
     this.light.on('connected', this.onConnected.bind(this));
     this.light.on('disconnecting', this.onDisconnecting.bind(this));
   }
 
   async connect() {
-    winston.info(`[Yeelight]: connecting to the light ${this.ip}:${this.port}...`);
+    winston.info(
+      `[Yeelight]: connecting to the light ${this.ip}:${this.port}...`,
+    );
+
     try {
       this.light.connect();
     } catch (err) {
@@ -27,7 +33,9 @@ export class Light {
   }
 
   async disconnect() {
-    winston.info(`[Yeelight]: disconnecting to the light ${this.ip}:${this.port}...`);
+    winston.info(
+      `[Yeelight]: disconnecting to the light ${this.ip}:${this.port}...`,
+    );
     if (this.timer) {
       clearTimeout(this.timer);
     }
@@ -48,7 +56,10 @@ export class Light {
       clearTimeout(this.timer);
     }
     await this.light.startColorFlow(
-      [new FlowState(800, 1, new Color(255, 0, 0).getValue(), 100), new FlowState(500, 1, new Color(255, 0, 0).getValue(), 1)],
+      [
+        new FlowState(800, 1, new Color(255, 0, 0).getValue(), 100),
+        new FlowState(500, 1, new Color(255, 0, 0).getValue(), 1),
+      ],
       StartFlowAction.LED_STAY,
     );
     await this.sleep(3 * 60 * 1000);
@@ -61,7 +72,10 @@ export class Light {
       clearTimeout(this.timer);
     }
     await this.light.startColorFlow(
-      [new FlowState(800, 1, new Color(241, 90, 34).getValue(), 100), new FlowState(500, 1, new Color(241, 90, 34).getValue(), 1)],
+      [
+        new FlowState(800, 1, new Color(241, 90, 34).getValue(), 100),
+        new FlowState(500, 1, new Color(241, 90, 34).getValue(), 1),
+      ],
       StartFlowAction.LED_STAY,
     );
     await this.sleep(5 * 60 * 1000);
@@ -72,7 +86,11 @@ export class Light {
     return new FlowState(
       time,
       1,
-      new Color(Math.floor(Math.random() * 256), Math.floor(Math.random() * 256), Math.floor(Math.random() * 256)).getValue(),
+      new Color(
+        Math.floor(Math.random() * 256),
+        Math.floor(Math.random() * 256),
+        Math.floor(Math.random() * 256),
+      ).getValue(),
       Math.floor(Math.random() * 101),
     );
   }
@@ -109,6 +127,8 @@ export class Light {
   }
 
   onDisconnecting() {
-    winston.info(`[Yeelight]: disconnecting to the light ${this.ip}:${this.port}`);
+    winston.info(
+      `[Yeelight]: disconnecting to the light ${this.ip}:${this.port}`,
+    );
   }
 }

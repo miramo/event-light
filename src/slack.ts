@@ -47,7 +47,11 @@ export class Slack {
     // console.dir(message, { depth: null });
     if (message.text) {
       this.messages.next(message.text);
-    } else if (message.attachments && message.attachments.length && message.attachments[0].title) {
+    } else if (
+      message.attachments &&
+      message.attachments.length &&
+      message.attachments[0].title
+    ) {
       this.messages.next(message.attachments[0].title);
     }
   }

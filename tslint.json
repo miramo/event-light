@@ -1,7 +1,7 @@
 {
   "defaultSeverity": "warn",
   "extends": [
-    "tslint:recommended",
+    "tslint:latest",
     "tslint-config-prettier",
     "tslint-consistent-codestyle"
   ],
@@ -51,9 +51,6 @@
     "object-literal-sort-keys": false,
     "interface-over-type-literal": false,
     "jsx-boolean-value": false,
-    "max-line-length": {
-      "options": 110
-    },
     "interface-name": false
   },
   "jsRules": {

@@ -1,9 +1,9 @@
-import winston from 'winston';
 import { exec } from 'child_process';
+import winston from 'winston';
 
 import { Light } from './light';
-import { Slack } from './slack';
 import { configureLogger } from './logger';
+import { Slack } from './slack';
 
 export class App {
   private light: Light;
@@ -36,7 +36,11 @@ export class App {
     if (/unhandled error/gim.test(message)) {
       exec(`${process.env.AUDIO_PLAYER} ${__dirname}/../assets/2plus2is4.mp3`);
       await this.light.alert();
-    } else if (/handled error/gim.test(message) || /snoozed error re-occurred/gim.test(message) || /\d+th event/gim.test(message)) {
+    } else if (
+      /handled error/gim.test(message) ||
+      /snoozed error re-occurred/gim.test(message) ||
+      /\d+th event/gim.test(message)
+    ) {
       exec(`${process.env.AUDIO_PLAYER} ${__dirname}/../assets/2plus2is4.mp3`);
       await this.light.warning();
     } else if (/deployment started/gim.test(message)) {
