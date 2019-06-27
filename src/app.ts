@@ -3,7 +3,7 @@ import winston from 'winston';
 
 import { Light } from './light';
 import { configureLogger } from './logger';
-import { Slack } from './slack';
+import { IMessage, Slack } from './slack';
 
 export class App {
   private light: Light;
@@ -30,25 +30,52 @@ export class App {
     await this.light.disconnect();
   }
 
-  async onMessage(message: string) {
-    winston.info(`[App]: message: ${message}`);
+  async onMessage(message: IMessage) {
+    const { text } = message;
+    winston.info(`[App]: message: "${text}"`);
 
-    if (/unhandled error/gim.test(message)) {
-      exec(`${process.env.AUDIO_PLAYER} ${__dirname}/../assets/2plus2is4.mp3`);
-      await this.light.alert();
-    } else if (
-      /handled error/gim.test(message) ||
-      /snoozed error re-occurred/gim.test(message) ||
-      /\d+th event/gim.test(message)
-    ) {
-      exec(`${process.env.AUDIO_PLAYER} ${__dirname}/../assets/2plus2is4.mp3`);
-      await this.light.warning();
-    } else if (/deployment started/gim.test(message)) {
-      exec(`${process.env.AUDIO_PLAYER} ${__dirname}/../assets/skia.mp3`);
-      await this.light.partyTime('start');
-    } else if (/deployment success/gim.test(message)) {
-      exec(`${process.env.AUDIO_PLAYER} ${__dirname}/../assets/ratata.mp3`);
-      await this.light.partyTime('end');
+    switch (true) {
+      case /unhandled error/gim.test(text):
+        this.playSound('2plus2is4.mp3');
+        await this.light.alert();
+        break;
+      case /handled error/gim.test(text):
+      case /snoozed error re-occurred/gim.test(text):
+      case /\d+th event/gim.test(text):
+        this.playSound('2plus2is4.mp3');
+        await this.light.warning();
+        break;
+      case /deployment started/gim.test(text):
+        this.playSound('skia.mp3');
+        await this.light.partyTime('slow');
+        break;
+      case /deployment success/gim.test(text):
+        this.playSound('ratata.mp3');
+        await this.light.partyTime('fast');
+        break;
+      case /chut/gim.test(text):
+        this.playSound('shush-short.mp3');
+        await this.light.shush();
+        break;
+      case /shush/gim.test(text):
+        this.playSound('shush-long.mp3');
+        await this.light.shush();
+        break;
+      case /tg dudule/gim.test(text):
+        this.playSound('dudule.mp3');
+        await this.slackClient.sendMessage(
+          'Be nice with dudule !',
+          message.channel,
+        );
+        await this.light.shush();
+        break;
     }
+  }
+
+  private playSound(title: string) {
+    const player = process.env.AUDIO_PLAYER;
+    const assetsDir = `${__dirname}/../assets`;
+
+    exec(`${player} ${assetsDir}/${title}`);
   }
 }

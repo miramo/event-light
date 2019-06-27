@@ -82,6 +82,22 @@ export class Light {
     await this.idle();
   }
 
+  async shush() {
+    winston.info(`[Yeelight]: shush the light ${this.ip}:${this.port}`);
+    if (this.timer) {
+      clearTimeout(this.timer);
+    }
+    await this.light.startColorFlow(
+      [
+        new FlowState(300, 1, new Color(255, 0, 0).getValue(), 100),
+        new FlowState(300, 1, new Color(255, 0, 0).getValue(), 1),
+      ],
+      StartFlowAction.LED_STAY,
+    );
+    await this.sleep(5 * 1000);
+    await this.idle();
+  }
+
   private randomState(time: number) {
     return new FlowState(
       time,
@@ -95,13 +111,13 @@ export class Light {
     );
   }
 
-  async partyTime(type: 'start' | 'end') {
+  async partyTime(type: 'slow' | 'fast') {
     winston.info(`[Yeelight]: party time the light ${this.ip}:${this.port}`);
     if (this.timer) {
       clearTimeout(this.timer);
     }
 
-    const time = type === 'start' ? 500 : 3000;
+    const time = type === 'slow' ? 500 : 3000;
     await this.light.startColorFlow(
       [
         this.randomState(time),

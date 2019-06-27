@@ -13,11 +13,16 @@
     "cm": "git-cz"
   },
   "dependencies": {
-    "@slack/client": "^5.0.1",
+    "@slack/rtm-api": "^5.0.1",
+    "@slack/web-api": "^5.0.1",
     "@types/dotenv-safe": "^5.0.3",
+    "@types/fast-ratelimit": "^2.2.0",
+    "@types/lodash.pick": "^4.4.6",
     "async-exit-hook": "^2.0.1",
     "dotenv-safe": "^6.1.0",
     "exit-hook": "^2.2.0",
+    "fast-ratelimit": "^2.2.0",
+    "lodash.pick": "^4.4.0",
     "rxjs": "^6.5.2",
     "winston": "^3.2.1",
     "yeelight-awesome": "^1.0.12"
