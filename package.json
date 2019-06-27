@@ -13,26 +13,26 @@
     "cm": "git-cz"
   },
   "dependencies": {
-    "@slack/client": "^5.0.0",
+    "@slack/client": "^5.0.1",
     "@types/dotenv-safe": "^5.0.3",
     "async-exit-hook": "^2.0.1",
     "dotenv-safe": "^6.1.0",
-    "exit-hook": "^2.1.0",
-    "rxjs": "^6.4.0",
+    "exit-hook": "^2.2.0",
+    "rxjs": "^6.5.2",
     "winston": "^3.2.1",
     "yeelight-awesome": "^1.0.12"
   },
   "devDependencies": {
-    "commitizen": "^3.0.7",
+    "commitizen": "^3.1.1",
     "cz-conventional-changelog": "^2.1.0",
-    "nodemon": "^1.18.11",
-    "prettier": "^1.17.0",
-    "ts-node": "^8.1.0",
-    "tslint": "^5.15.0",
+    "nodemon": "^1.19.1",
+    "prettier": "^1.18.2",
+    "ts-node": "^8.3.0",
+    "tslint": "^5.18.0",
     "tslint-config-prettier": "^1.18.0",
     "tslint-consistent-codestyle": "^1.15.1",
     "tslint-plugin-prettier": "^2.0.1",
-    "typescript": "^3.4.3"
+    "typescript": "^3.5.2"
   },
   "config": {
     "commitizen": {
