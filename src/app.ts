@@ -61,13 +61,16 @@ export class App {
         this.playSound('shush-long.mp3');
         await this.light.shush();
         break;
-      case /tg dudule/gim.test(text):
-        this.playSound('dudule.mp3');
+      case /dudule/gim.test(text):
         await this.slackClient.sendMessage(
           'Be nice with dudule !',
           message.channel,
         );
-        await this.light.shush();
+      case /say: (.+)/gim.test(text):
+        const matchTTS = /say: (.+)/gim.exec(text);
+        if (matchTTS && matchTTS[1]) {
+          this.speak(matchTTS[1]);
+        }
         break;
     }
   }
@@ -77,5 +80,13 @@ export class App {
     const assetsDir = `${__dirname}/../assets`;
 
     exec(`${player} ${assetsDir}/${title}`);
+  }
+
+  private speak(text: string) {
+    const player = process.env.AUDIO_PLAYER;
+
+    exec(
+      `${player} "http://translate.google.com/translate_tts?ie=UTF-8&client=tw-ob&q=${text}&tl=fr"`,
+    );
   }
 }
