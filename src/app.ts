@@ -35,6 +35,7 @@ export class App {
     winston.info(`[App]: message: "${text}"`);
 
     switch (true) {
+      case /event in/gim.test(text):
       case /unhandled error/gim.test(text):
         this.playSound('2plus2is4.mp3');
         await this.light.alert();

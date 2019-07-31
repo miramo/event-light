@@ -26,6 +26,8 @@ export class Slack {
 
     this.rtm.on('message', this.onMessage.bind(this));
     this.rtm.on('connecting', this.onConnecting.bind(this));
+    this.rtm.on('connected', this.onConnected.bind(this));
+    this.rtm.on('ready', this.onReady.bind(this));
     this.rtm.on('disconnecting', this.onDisconnecting.bind(this));
     this.rtm.on('disconnected', this.onDisconnect.bind(this));
     this.rtm.on('reconnecting', this.onReconnecting.bind(this));
@@ -35,6 +37,14 @@ export class Slack {
 
   onConnecting() {
     winston.info('[Slack]: connecting to slack API...');
+  }
+
+  onConnected() {
+    winston.info('[Slack]: connected to slack!');
+  }
+
+  onReady() {
+    winston.info('[Slack]: slack is ready!');
   }
 
   onDisconnecting() {
@@ -103,7 +113,6 @@ export class Slack {
     } catch (err) {
       winston.error(`[Slack]: err = ${err}`);
     }
-    winston.info(`[Slack]: connected to slack!`);
   }
 
   disconnect() {

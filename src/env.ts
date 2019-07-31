@@ -1,5 +1,5 @@
 import dotenv from 'dotenv-safe';
 
-dotenv.load({
+dotenv.config({
   allowEmptyValues: true,
 });
