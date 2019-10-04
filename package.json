@@ -14,7 +14,7 @@
   },
   "dependencies": {
     "@slack/rtm-api": "^5.0.3",
-    "@slack/web-api": "^5.2.0",
+    "@slack/web-api": "^5.2.1",
     "@types/dotenv-safe": "^5.0.3",
     "@types/fast-ratelimit": "^2.2.0",
     "@types/lodash.pick": "^4.4.6",

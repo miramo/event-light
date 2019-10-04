@@ -13,7 +13,14 @@ export class Light {
   constructor(private ip: string, private port: string) {
     this.light = new Yeelight(
       { lightIp: ip, lightPort: Number(port) },
-      winston,
+      {
+        info: (message, data?: any) =>
+          winston.info(message + JSON.stringify(data)),
+        error: (message, data?: any) =>
+          winston.error(message + JSON.stringify(data)),
+        debug: (message, data?: any) =>
+          winston.debug(message + JSON.stringify(data)),
+      },
     );
 
     this.light.on('connected', this.onConnected.bind(this));
@@ -120,11 +127,6 @@ export class Light {
     const time = type === 'slow' ? 500 : 3000;
     await this.light.startColorFlow(
       [
-        this.randomState(time),
-        this.randomState(time),
-        this.randomState(time),
-        this.randomState(time),
-        this.randomState(time),
         this.randomState(time),
         this.randomState(time),
         this.randomState(time),

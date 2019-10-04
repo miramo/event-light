@@ -35,15 +35,15 @@ export class App {
     winston.info(`[App]: message: "${text}"`);
 
     switch (true) {
-      case /event in/gim.test(text):
+      case /event\* in/gim.test(text):
       case /unhandled error/gim.test(text):
-        this.playSound('2plus2is4.mp3');
+        this.playSound('nananana.mp3');
         await this.light.alert();
         break;
       case /handled error/gim.test(text):
       case /snoozed error re-occurred/gim.test(text):
       case /\d+th event/gim.test(text):
-        this.playSound('2plus2is4.mp3');
+        this.playSound('nananana.mp3');
         await this.light.warning();
         break;
       case /deployment started/gim.test(text):
@@ -60,6 +60,10 @@ export class App {
         break;
       case /shush/gim.test(text):
         this.playSound('shush-long.mp3');
+        await this.light.shush();
+        break;
+      case /nananana/gim.test(text):
+        this.playSound('nananana.mp3');
         await this.light.shush();
         break;
       case /dudule/gim.test(text):
