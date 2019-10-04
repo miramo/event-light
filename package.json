@@ -13,8 +13,8 @@
     "cm": "git-cz"
   },
   "dependencies": {
-    "@slack/rtm-api": "^5.0.2",
-    "@slack/web-api": "^5.1.0",
+    "@slack/rtm-api": "^5.0.3",
+    "@slack/web-api": "^5.2.0",
     "@types/dotenv-safe": "^5.0.3",
     "@types/fast-ratelimit": "^2.2.0",
     "@types/lodash.pick": "^4.4.6",
@@ -30,12 +30,12 @@
   "devDependencies": {
     "commitizen": "^4.0.3",
     "cz-conventional-changelog": "^3.0.2",
-    "nodemon": "^1.19.2",
+    "nodemon": "^1.19.3",
     "prettier": "^1.18.2",
     "ts-node": "^8.4.1",
     "tslint": "^5.20.0",
     "tslint-config-prettier": "^1.18.0",
-    "tslint-consistent-codestyle": "^1.15.1",
+    "tslint-consistent-codestyle": "^1.16.0",
     "tslint-plugin-prettier": "^2.0.1",
     "typescript": "^3.6.3"
   },
