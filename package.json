@@ -9,35 +9,35 @@
     "test": "echo 'no test'",
     "lint": "./node_modules/.bin/tslint -c ./tslint.json -p ./tsconfig.json -t verbose",
     "build": "./node_modules/.bin/tsc",
-    "start": "node dist/index.js",
+    "start": "node index.js",
     "cm": "git-cz"
   },
   "dependencies": {
     "@slack/rtm-api": "^5.0.3",
-    "@slack/web-api": "^5.2.1",
-    "@types/dotenv-safe": "^5.0.3",
+    "@slack/web-api": "^5.7.0",
+    "@types/dotenv-safe": "^8.1.0",
     "@types/fast-ratelimit": "^2.2.0",
     "@types/lodash.pick": "^4.4.6",
     "async-exit-hook": "^2.0.1",
-    "dotenv-safe": "^8.1.0",
+    "dotenv-safe": "^8.2.0",
     "exit-hook": "^2.2.0",
     "fast-ratelimit": "^2.2.0",
     "lodash.pick": "^4.4.0",
-    "rxjs": "^6.5.3",
+    "rxjs": "^6.5.4",
     "winston": "^3.2.1",
     "yeelight-awesome": "^1.0.12"
   },
   "devDependencies": {
     "commitizen": "^4.0.3",
     "cz-conventional-changelog": "^3.0.2",
-    "nodemon": "^1.19.3",
-    "prettier": "^1.18.2",
-    "ts-node": "^8.4.1",
-    "tslint": "^5.20.0",
+    "nodemon": "^2.0.2",
+    "prettier": "^1.19.1",
+    "ts-node": "^8.6.2",
+    "tslint": "^6.0.0",
     "tslint-config-prettier": "^1.18.0",
     "tslint-consistent-codestyle": "^1.16.0",
-    "tslint-plugin-prettier": "^2.0.1",
-    "typescript": "^3.6.3"
+    "tslint-plugin-prettier": "^2.1.0",
+    "typescript": "^3.7.5"
   },
   "config": {
     "commitizen": {
