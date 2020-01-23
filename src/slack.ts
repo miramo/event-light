@@ -1,7 +1,7 @@
 import { RTMCallResult, RTMClient } from '@slack/rtm-api';
 import { WebClient } from '@slack/web-api';
 import { FastRateLimit } from 'fast-ratelimit';
-import pick from 'lodash.pick';
+import _ from 'lodash';
 import { Subject } from 'rxjs';
 import winston from 'winston';
 
@@ -83,18 +83,20 @@ export class Slack {
     try {
       const { user } = (await this.web.users.info({ user: userId })) as any;
       userName = user.real_name;
-    } catch {}
+    } catch {
+      winston.info(`[Slack]: can't get user_name`);
+    }
 
     if (text) {
       winston.info(`[Slack]: ${userName} (${userId}) send message: "${text}"`);
-      this.messages.next(pick(message, ['userId', 'channel', 'text']));
+      this.messages.next(_.pick(message, ['userId', 'channel', 'text']));
     } else if (attachments && attachments.length && attachments[0].title) {
       winston.info(
         `[Slack]: (${userId}) send message: "${attachments[0].title}"`,
       );
       this.messages.next({
         text: message.attachments[0].title,
-        ...pick(message, ['userId', 'channel']),
+        ..._.pick(message, ['userId', 'channel']),
       });
     }
   }
