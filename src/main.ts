@@ -1,18 +1,15 @@
 import './env';
 
-import exitHook from 'async-exit-hook';
+import { addExitHook } from 'exit-hook-plus';
 
 import { App } from './app';
 
 async function start() {
   const app = new App();
 
-  app.start();
+  await app.start();
 
-  exitHook(async (cb: () => void) => {
-    await app.stop();
-    cb();
-  });
+  addExitHook(async () => app.stop());
 }
 
 start();

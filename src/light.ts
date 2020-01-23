@@ -6,7 +6,7 @@ export class Light {
 
   private timer: NodeJS.Timeout;
   private sleep = (delay: number) =>
-    new Promise(resolve => {
+    new Promise((resolve) => {
       this.timer = setTimeout(resolve, delay);
     });
 
