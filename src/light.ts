@@ -6,7 +6,7 @@ export class Light {
 
   private timer: NodeJS.Timeout;
   private sleep = (delay: number) =>
-    new Promise(resolve => {
+    new Promise((resolve) => {
       this.timer = setTimeout(resolve, delay);
     });
 
@@ -22,6 +22,7 @@ export class Light {
           winston.debug(message + JSON.stringify(data)),
       },
     );
+    this.light.autoReconnect = true;
 
     this.light.on('connected', this.onConnected.bind(this));
     this.light.on('disconnecting', this.onDisconnecting.bind(this));
@@ -33,7 +34,7 @@ export class Light {
     );
 
     try {
-      this.light.connect();
+      await this.light.connect();
     } catch (err) {
       winston.error(`[Yeelight]: err = ${err}`);
     }
@@ -124,7 +125,7 @@ export class Light {
       clearTimeout(this.timer);
     }
 
-    const time = type === 'slow' ? 500 : 3000;
+    const time = type === 'fast' ? 500 : 3000;
     await this.light.startColorFlow(
       [
         this.randomState(time),
