@@ -1,9 +1,13 @@
 import { exec } from 'child_process';
 import winston from 'winston';
+import { random } from 'lodash';
 
 import { Light } from './light';
 import { configureLogger } from './logger';
 import { IMessage, Slack } from './slack';
+import { SOUNDS, SoundType, SoundTypeEnum } from './sounds';
+
+const PLAYER = 'mpv --no-video';
 
 export class App {
   private light: Light;
@@ -26,8 +30,8 @@ export class App {
 
   async stop() {
     winston.info('[App]: stopping...');
-    await this.slackClient.disconnect();
     await this.light.disconnect();
+    await this.slackClient.disconnect();
   }
 
   async onMessage(message: IMessage) {
@@ -37,33 +41,43 @@ export class App {
     switch (true) {
       case /event\* in/gim.test(text):
       case /unhandled error/gim.test(text):
-        this.playSound('nananana.mp3');
+        this.playSoundType(SoundTypeEnum.ERROR);
         await this.light.alert();
         break;
       case /handled error/gim.test(text):
       case /snoozed error re-occurred/gim.test(text):
       case /\d+th event/gim.test(text):
-        this.playSound('nananana.mp3');
+        this.playSoundType(SoundTypeEnum.ERROR);
         await this.light.warning();
         break;
       case /deployment started/gim.test(text):
-        this.playSound('skia.mp3');
+      case /There is a new deploy in process/gim.test(text):
+        this.playSoundType(SoundTypeEnum.DEPLOY_START);
         await this.light.partyTime('slow');
         break;
       case /deployment success/gim.test(text):
-        this.playSound('ratata.mp3');
+      case /Successful deploy/gim.test(text):
+        this.playSoundType(SoundTypeEnum.DEPLOY_END);
         await this.light.partyTime('fast');
         break;
       case /chut/gim.test(text):
-        this.playSound('shush-short.mp3');
+        this.playSoundType(SoundTypeEnum.SHUSH_SHORT);
         await this.light.shush();
         break;
       case /shush/gim.test(text):
-        this.playSound('shush-long.mp3');
+        this.playSoundType(SoundTypeEnum.SHUSH_LONG);
         await this.light.shush();
         break;
       case /nananana/gim.test(text):
-        this.playSound('nananana.mp3');
+        this.playSound(SOUNDS[SoundTypeEnum.ERROR][1]);
+        await this.light.shush();
+        break;
+      case /maaarc/gim.test(text):
+        this.playSound(SOUNDS[SoundTypeEnum.ERROR][4]);
+        await this.light.shush();
+        break;
+      case /giorgio/gim.test(text):
+        this.playSound(SOUNDS[SoundTypeEnum.ERROR][12]);
         await this.light.shush();
         break;
       case /dudule/gim.test(text):
@@ -74,24 +88,27 @@ export class App {
       case /say: (.+)/gim.test(text):
         const matchTTS = /say: (.+)/gim.exec(text);
         if (matchTTS && matchTTS[1]) {
-          this.speak(matchTTS[1]);
+          this.speak(encodeURI(matchTTS[1]));
         }
         break;
     }
   }
 
-  private playSound(title: string) {
-    const player = process.env.AUDIO_PLAYER;
-    const assetsDir = `${__dirname}/../assets`;
+  private playSound(sound: SoundType) {
+    winston.info(`[App]: playSound: "${sound.path}"`);
+    exec(
+      `${PLAYER} --start=${sound.start} --end=${sound.end} --volume=${sound.volume} "${sound.path}"`,
+    );
+  }
 
-    exec(`${player} ${assetsDir}/${title}`);
+  private playSoundType(type: SoundTypeEnum) {
+    this.playSound(SOUNDS[type][random(SOUNDS[type].length - 1)]);
   }
 
   private speak(text: string) {
-    const player = process.env.AUDIO_PLAYER;
-
+    winston.info(`[App]: speak: "${text}"`);
     exec(
-      `${player} "http://translate.google.com/translate_tts?ie=UTF-8&client=tw-ob&q=${text}&tl=fr"`,
+      `${PLAYER} "http://translate.google.com/translate_tts?ie=UTF-8&client=tw-ob&q=${text}&tl=fr"`,
     );
   }
 }
