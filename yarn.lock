@@ -164,17 +164,10 @@
   dependencies:
     "@types/node" "*"
 
-"@types/lodash.pick@^4.4.6":
-  version "4.4.6"
-  resolved "https://registry.yarnpkg.com/@types/lodash.pick/-/lodash.pick-4.4.6.tgz#ae4e8f109e982786313bb6aac4b1a73aefa6e9be"
-  integrity sha512-u8bzA16qQ+8dY280z3aK7PoWb3fzX5ATJ0rJB6F+uqchOX2VYF02Aqa+8aYiHiHgPzQiITqCgeimlyKFy4OA6g==
-  dependencies:
-    "@types/lodash" "*"
-
-"@types/lodash@*":
-  version "4.14.139"
-  resolved "https://registry.yarnpkg.com/@types/lodash/-/lodash-4.14.139.tgz#b7b8a00d014a7debb29dc2dae4f91d3d3c6d5ab3"
-  integrity sha512-Z6pbDYaWpluqcF8+6qgv6STPEl0jIlyQmpYGwTrzhgwqok8ltBh/p7GAmYnz81wUhxQRhEr8MBpQrB4fQ/hwIA==
+"@types/lodash@^4.14.149":
+  version "4.14.149"
+  resolved "https://registry.yarnpkg.com/@types/lodash/-/lodash-4.14.149.tgz#1342d63d948c6062838fbf961012f74d4e638440"
+  integrity sha512-ijGqzZt/b7BfzcK9vTrS6MFljQRPn5BFWOx8oE0GYxribu6uV+aA9zZuXI1zc/etK9E8nrgdoF2+LgUw7+9tJQ==
 
 "@types/node@*", "@types/node@>=8.9.0", "@types/node@^12.0.2":
   version "12.7.7"
@@ -637,6 +630,11 @@ conventional-commit-types@^2.0.0:
   resolved "https://registry.yarnpkg.com/conventional-commit-types/-/conventional-commit-types-2.1.1.tgz#352eb53f56fbc7c1a6c1ba059c2b6670c90b2a8a"
   integrity sha512-0Ts+fEdmjqYDOQ1yZ+LNgdSPO335XZw9qC10M7CxtLP3nIMGmeMhmkM8Taffa4+MXN13bRPlp0CtH+QfOzKTzw==
 
+conventional-commit-types@^3.0.0:
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/conventional-commit-types/-/conventional-commit-types-3.0.0.tgz#7c9214e58eae93e85dd66dbfbafe7e4fffa2365b"
+  integrity sha512-SmmCYnOniSsAa9GqWOeLqc179lfr5TRu5b4QFDkbsrJ5TZjPJx85wtOr3zn+1dbeNiXDKGPbZ72IKbPhLXh/Lg==
+
 copy-descriptor@^0.1.0:
   version "0.1.1"
   resolved "https://registry.yarnpkg.com/copy-descriptor/-/copy-descriptor-0.1.1.tgz#676f6eb3c39997c2ee1ac3a924fd6124748f578d"
@@ -697,14 +695,14 @@ cz-conventional-changelog@3.0.1:
   optionalDependencies:
     "@commitlint/load" ">6.1.1"
 
-cz-conventional-changelog@^3.0.2:
-  version "3.0.2"
-  resolved "https://registry.yarnpkg.com/cz-conventional-changelog/-/cz-conventional-changelog-3.0.2.tgz#f6b9a406177ab07f9a3a087e06103a045b376260"
-  integrity sha512-MPxERbtQyVp0nnpCBiwzKGKmMBSswmCV3Jpef3Axqd5f3c/SOc6VFiSUlclOyZXBn3Xtf4snzt4O15hBTRb2gA==
+cz-conventional-changelog@^3.1.0:
+  version "3.1.0"
+  resolved "https://registry.yarnpkg.com/cz-conventional-changelog/-/cz-conventional-changelog-3.1.0.tgz#1e004a4f507531347a5f78ab4ed65c3ff693fc97"
+  integrity sha512-SCwPPOF+7qMh1DZkJhrwaxCvZzPaz2E9BwQzcZwBuHlpcJj9zzz7K5vADQRhHuxStaHZFSLbDlZEdcls4bKu7Q==
   dependencies:
     chalk "^2.4.1"
     commitizen "^4.0.3"
-    conventional-commit-types "^2.0.0"
+    conventional-commit-types "^3.0.0"
     lodash.map "^4.5.1"
     longest "^2.0.1"
     right-pad "^1.0.1"
@@ -1596,17 +1594,12 @@ lodash.map@^4.5.1:
   resolved "https://registry.yarnpkg.com/lodash.map/-/lodash.map-4.6.0.tgz#771ec7839e3473d9c4cde28b19394c3562f4f6d3"
   integrity sha1-dx7Hg540c9nEzeKLGTlMNWL09tM=
 
-lodash.pick@^4.4.0:
-  version "4.4.0"
-  resolved "https://registry.yarnpkg.com/lodash.pick/-/lodash.pick-4.4.0.tgz#52f05610fff9ded422611441ed1fc123a03001b3"
-  integrity sha1-UvBWEP/53tQiYRRB7R/BI6AwAbM=
-
 lodash@4.17.14:
   version "4.17.14"
   resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.14.tgz#9ce487ae66c96254fe20b599f21b6816028078ba"
   integrity sha512-mmKYbW3GLuJeX+iGP+Y7Gp1AiGHGbXHCOh/jZmrawMmsE7MS4znI3RL2FsjbqOyMayHInjOeykW7PEajUk1/xw==
 
-lodash@4.17.15, lodash@^4.17.12, lodash@^4.17.14:
+lodash@4.17.15, lodash@^4.17.12, lodash@^4.17.14, lodash@^4.17.15:
   version "4.17.15"
   resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.15.tgz#b447f6670a0455bbfeedd11392eff330ea097548"
   integrity sha512-8xOcRHvCjnocdS5cpwXQXVzmmh5e5+saE2QGoeQmbKmRS6J3VQppPOIt0MnmE+4xlZoumy0GPG0D0MVIQbNA1A==
@@ -2531,10 +2524,10 @@ tsutils@^3.5.0:
   dependencies:
     tslib "^1.8.1"
 
-typescript@^3.7.5:
-  version "3.7.5"
-  resolved "https://registry.yarnpkg.com/typescript/-/typescript-3.7.5.tgz#0692e21f65fd4108b9330238aac11dd2e177a1ae"
-  integrity sha512-/P5lkRXkWHNAbcJIiHPfRoKqyd7bsyCma1hZNUGfn20qm64T6ZBlrzprymeu918H+mB/0rIg2gGK/BXkhhYgBw==
+typescript@^3.8.2:
+  version "3.8.2"
+  resolved "https://registry.yarnpkg.com/typescript/-/typescript-3.8.2.tgz#91d6868aaead7da74f493c553aeff76c0c0b1d5a"
+  integrity sha512-EgOVgL/4xfVrCMbhYKUQTdF37SQn4Iw73H5BgCrF1Abdun7Kwy/QZsE/ssAy0y4LxBbvua3PIbFsbRczWWnDdQ==
 
 undefsafe@^2.0.2:
   version "2.0.2"

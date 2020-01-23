@@ -1,9 +1,13 @@
 import { exec } from 'child_process';
 import winston from 'winston';
+import _ from 'lodash';
 
 import { Light } from './light';
 import { configureLogger } from './logger';
 import { IMessage, Slack } from './slack';
+import { SOUNDS, SoundType, SoundTypeEnum } from './sounds';
+
+const PLAYER = 'mpv --no-video';
 
 export class App {
   private light: Light;
@@ -37,33 +41,35 @@ export class App {
     switch (true) {
       case /event\* in/gim.test(text):
       case /unhandled error/gim.test(text):
-        this.playSound('nananana.mp3');
+        this.playSoundType(SoundTypeEnum.ERROR);
         await this.light.alert();
         break;
       case /handled error/gim.test(text):
       case /snoozed error re-occurred/gim.test(text):
       case /\d+th event/gim.test(text):
-        this.playSound('nananana.mp3');
+        this.playSoundType(SoundTypeEnum.ERROR);
         await this.light.warning();
         break;
       case /deployment started/gim.test(text):
-        this.playSound('skia.mp3');
+      case /There is a new deploy in process/gim.test(text):
+        this.playSoundType(SoundTypeEnum.DEPLOY_START);
         await this.light.partyTime('slow');
         break;
       case /deployment success/gim.test(text):
-        this.playSound('ratata.mp3');
+      case /Successful deploy/gim.test(text):
+        this.playSoundType(SoundTypeEnum.DEPLOY_END);
         await this.light.partyTime('fast');
         break;
       case /chut/gim.test(text):
-        this.playSound('shush-short.mp3');
+        this.playSoundType(SoundTypeEnum.SHUSH_SHORT);
         await this.light.shush();
         break;
       case /shush/gim.test(text):
-        this.playSound('shush-long.mp3');
+        this.playSoundType(SoundTypeEnum.SHUSH_LONG);
         await this.light.shush();
         break;
       case /nananana/gim.test(text):
-        this.playSound('nananana.mp3');
+        this.playSound({ path: 'ytdl://8j23aB4wNDk', start: 0, end: 2.5 });
         await this.light.shush();
         break;
       case /dudule/gim.test(text):
@@ -80,18 +86,20 @@ export class App {
     }
   }
 
-  private playSound(title: string) {
-    const player = process.env.AUDIO_PLAYER;
-    const assetsDir = `${__dirname}/../assets`;
+  private playSound(sound: SoundType) {
+    exec(`${PLAYER} --start=${sound.start} --end=${sound.end} "${sound.path}"`);
+  }
 
-    exec(`${player} ${assetsDir}/${title}`);
+  private playSoundType(type: SoundTypeEnum) {
+    const index = _.random(0, SOUNDS[type].length - 1);
+    const sound: SoundType = SOUNDS[type][index];
+
+    this.playSound(sound);
   }
 
   private speak(text: string) {
-    const player = process.env.AUDIO_PLAYER;
-
     exec(
-      `${player} "http://translate.google.com/translate_tts?ie=UTF-8&client=tw-ob&q=${text}&tl=fr"`,
+      `${PLAYER} "http://translate.google.com/translate_tts?ie=UTF-8&client=tw-ob&q=${text}&tl=fr"`,
     );
   }
 }
