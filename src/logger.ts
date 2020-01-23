@@ -9,7 +9,7 @@ export function configureLogger() {
       winston.format.timestamp({
         format: 'YYYY-MM-DD HH:mm:ss',
       }),
-      winston.format.printf(info => `[${info.timestamp}] ${info.message}`),
+      winston.format.printf((info) => `[${info.timestamp}] ${info.message}`),
     ),
   });
 }
