@@ -22,7 +22,7 @@
     "dotenv-safe": "^8.2.0",
     "exit-hook": "^2.2.0",
     "fast-ratelimit": "^2.2.0",
-    "lodash": "^4.17.15",
+    "lodash": "^4.17.19",
     "rxjs": "^6.5.4",
     "winston": "^3.2.1",
     "yeelight-awesome": "^1.0.12"
